@@ -1,8 +1,9 @@
 class Joke
+    
     attr_reader :data
+    
     def initialize(data)
         @data = data
-
     end
 
     def id
