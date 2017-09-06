@@ -39,6 +39,35 @@ class UserTest < Minitest::Test
   end 
 
   def test_user_can_tell_other_user_joke
-    
+    sal = User.new("Sal")
+    ali = User.new("Ali")
+    joke = Joke.new({id: 1, question: "Why did the strawberry cross the road?", answer: "Because his mother was in a jam."})
+
+    sal.tell(ali, joke)
+
+    assert_equal 1, ali.jokes.count
   end 
-end
+
+  def test_user_can_give_routine
+    joke_1 = Joke.new({id: 1, question: "Why did the strawberry cross the road?", answer: "Because his mother was in a jam."})
+    joke_2 = Joke.new({id: 2, question: "How do you keep a lion from charging?", answer: "Take away its credit cards."})
+    
+    ilana = User.new("Ilana")
+    josh = User.new("Josh")
+    ilana.learn(joke_1)
+    ilana.learn(joke_2)
+    ilana.perform_routine_for(josh)
+    
+    assert_equal 2, josh.jokes.count
+
+
+  end
+
+  def test_users_can_teach_routines
+    casey = User.new("Casey")
+
+    casey.learn_routine('./jokes.csv')
+
+    assert_equal 100, casey.jokes.count
+  end 
+end 
