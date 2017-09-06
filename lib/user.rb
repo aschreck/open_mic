@@ -22,9 +22,14 @@ class User
   end 
 
   def learn_routine(file)
-
+    jokes = File.open(file)
+    jokes.each do |line|
+      joke_array = line.split(',')
+      joke = Joke.new(id: joke_array[0], question: joke_array[1], answer: joke_array[2])
+      @jokes << joke
+    end 
+    @jokes.shift
   end 
-
 end
 
 
